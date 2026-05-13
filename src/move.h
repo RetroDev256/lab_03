@@ -16,9 +16,6 @@
 #include <sstream> // for ostringstream
 #include <string>
 
-class TestMove;
-class TestBoard;
-
 /******************************************************************************
  * MOVE
  * One move across the board
@@ -35,8 +32,9 @@ class Move
          MOVE_ERROR
       };
 
-      friend TestMove;
-      friend TestBoard;
+      friend class TestMove;
+      friend class TestBoard;
+      friend class TestKnight;
 
       // Default constructor
       Move();

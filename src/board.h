@@ -40,7 +40,7 @@ class Board
 
    public:
       // Default constructor for board
-      Board();
+      Board(ogstream *pgout = nullptr, bool noreset = true);
 
       // Get the current move
       virtual int getCurrentMove() const { return numMoves; }
@@ -58,6 +58,9 @@ class Board
       // Index the board with a Position to get a piece reference
       virtual Piece &operator[](const Position &pos);
 
+      virtual void free() { assert(false); }           // ???
+      virtual void reset(bool free) { assert(false); } // ???
+
    protected:
       // the number of moves since the game began
       int numMoves;
@@ -74,7 +77,7 @@ class BoardDummy : public Board
       friend TestBoard;
 
    public:
-      BoardDummy() {}
+      BoardDummy() : Board(nullptr, true) {}
       ~BoardDummy() {}
 
       void display(const Position &hover, const Position &select) const
@@ -86,6 +89,8 @@ class BoardDummy : public Board
       bool whiteTurn() const { assert(false); }
       Piece &operator[](const Position &pos) { assert(false); }
       const Piece &operator[](const Position &pos) const { assert(false); }
+      void free() { assert(false); }
+      void reset(bool free = true) { assert(false); }
 };
 
 /******************************************************************************
@@ -101,8 +106,10 @@ class BoardEmpty : public BoardDummy
    public:
       Piece *pSpace;
 
-      BoardEmpty() : BoardDummy(), pSpace(new Space) {}
+      BoardEmpty() : BoardDummy() {}
       ~BoardEmpty() { delete pSpace; }
+
+      // TODO: might need to add getCurrentMove() -> 0 ???
 
       const Piece &operator[](const Position &pos) const
       {

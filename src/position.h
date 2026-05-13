@@ -34,8 +34,6 @@ const Delta ADD_C = {0, 1};
 const Delta SUB_R = {-1, 0};
 const Delta SUB_C = {0, -1};
 
-class PositionTest;
-
 /******************************************************************************
  * POSITION
  * The location of a piece on the board
@@ -43,6 +41,8 @@ class PositionTest;
 class Position
 {
       friend class PositionTest;
+      friend class TestKnight;
+      friend class TestBoard;
 
    public:
       // Default constructor - position is invalid by default

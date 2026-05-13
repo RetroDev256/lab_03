@@ -17,8 +17,12 @@ using namespace std;
  * Default constructor for board
  * - sets each piece pointer to null
  *****************************************************************************/
-Board::Board() : numMoves(0)
+Board::Board(ogstream *pgout, bool noreset) : numMoves(0)
 {
+   // unused.
+   (void)pgout;
+   (void)noreset;
+
    for (uint8_t row = 0; row < 8; row++)
       for (uint8_t col = 0; col < 8; col++)
          board[row][col] = nullptr;

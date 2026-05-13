@@ -10,9 +10,6 @@
 #include "position.h"
 #include "test.h"
 
-double Position::squareWidth = (double)SIZE_SQUARE;
-double Position::squareHeight = (double)SIZE_SQUARE;
-
 /******************************************************************************
  * MAIN
  * There can be only one!

@@ -8,12 +8,12 @@
  ************************************************************************/
 
 #include "test.h"
-#include "testBoard.h"
-#include "testKnight.h"
-#include "testMove.h"
 #include "testPiece.h"
-#include "testPosition.h"
 #include "testSpace.h"
+#include "testKnight.h"
+#include "testPosition.h"
+#include "testBoard.h"
+#include "testMove.h"
 
 // This code, and the similar IF_DEF in testRunner(), is to ensure that
 // you can see the text output (called the console window) and OpenGL's
@@ -22,10 +22,11 @@
 // and your team is exclusively on Visual Studio, you can safely remove
 // these two "#ifdef _WIN32" and the "#endif" below it.
 #ifdef _WIN32
-#include <iostream>
 #include <windows.h>
+#include <iostream>
 using namespace std;
 #endif
+
 
 int PieceSpy::numConstruct = 0;
 int PieceSpy::numCopy = 0;
@@ -41,7 +42,7 @@ void testRunner()
 {
 #ifdef _WIN32
    AllocConsole();
-   FILE *stream;
+   FILE* stream;
    errno_t err;
    err = freopen_s(&stream, "CONOUT$", "a", stdout);
 #endif // _WIN32
