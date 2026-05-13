@@ -2,7 +2,7 @@
  * Header File:
  *    SPACE
  * Author:
- *    <your name here> 
+ *    Eric Petersen & Briant Woolley
  * Summary:
  *    The space
  ************************************************************************/
@@ -13,16 +13,17 @@
 
 class TestSpace;
 
- /***************************************************
-  * SPACES
-  * A space is a trivial piece
-  ***************************************************/
+/***************************************************
+ * SPACES
+ * A space is a trivial piece
+ ***************************************************/
 class Space : public Piece
 {
-   friend TestSpace;
-public:
-   Space(int c, int r) : Piece(9, 9)   {               }
-   ~Space()                            {               }
-   PieceType getType()           const { return ROOK;  }
-   void display(ogstream* pgout) const {               }
+      friend TestSpace;
+
+   public:
+      Space(int c, int r) : Piece(c, r) {}
+      ~Space() {}
+      PieceType getType() const { return PieceType::SPACE; }
+      void display(ogstream *pgout) const {}
 };

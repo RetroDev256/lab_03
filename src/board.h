@@ -9,8 +9,9 @@
 
 #pragma once
 
-#include "move.h"  // Because we return a set of Move
-#include "piece.h" // For Piece
+#include "move.h"       // Because we return a set of Move
+#include "piece.h"      // For Piece
+#include "pieceSpace.h" // For Space
 #include <cassert>
 
 class ogstream;
@@ -106,7 +107,7 @@ class BoardEmpty : public BoardDummy
    public:
       Piece *pSpace;
 
-      BoardEmpty() : BoardDummy() {}
+      BoardEmpty() : BoardDummy(), pSpace(new Space(0, 0)) {}
       ~BoardEmpty() { delete pSpace; }
 
       // TODO: might need to add getCurrentMove() -> 0 ???

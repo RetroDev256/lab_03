@@ -50,24 +50,41 @@ class Piece
       friend TestBoard;
 
       // constructors and stuff
-      Piece(const Position &pos, bool isWhite = true) {}
-      Piece(int c, int r, bool isWhite = true) {}
-      Piece(const Piece &piece) {}
+      Piece(const Position &pos, bool isWhite = true) :
+         position(pos), fWhite(isWhite)
+      {
+      }
+
+      Piece(int c, int r, bool isWhite = true) : position(c, r), fWhite(isWhite)
+      {
+      }
+
+      Piece(const Piece &piece) :
+         nMoves(piece.nMoves),
+         fWhite(piece.fWhite),
+         position(piece.position),
+         lastMove(piece.lastMove)
+      {
+      }
+
       virtual ~Piece() {}
       virtual const Piece &operator=(const Piece &rhs);
 
       // getters
-      virtual bool operator==(PieceType pt) const { return true; }
-      virtual bool operator!=(PieceType pt) const { return true; }
-      virtual bool isWhite() const { return true; }
-      virtual bool isMoved() const { return true; }
-      virtual int getNMoves() const { return 9999; }
-      virtual void decrementNMoves() {}
-      virtual const Position &getPosition() const { return Position(); }
-      virtual bool justMoved(int currentMove) const { return true; }
+      virtual bool operator==(PieceType pt) const { return getType() == pt; }
+      virtual bool operator!=(PieceType pt) const { return getType() != pt; }
+      virtual bool isWhite() const { return fWhite; }
+      virtual bool isMoved() const { return nMoves > 0; }
+      virtual int getNMoves() const { return nMoves; }
+      virtual void decrementNMoves() { nMoves--; }
+      virtual const Position &getPosition() const { return position; }
+      virtual bool justMoved(int currentMove) const
+      {
+         return lastMove + 1 == currentMove;
+      }
 
       // setter
-      virtual void setLastMove(int currentMove) {}
+      virtual void setLastMove(int currentMove) { lastMove = currentMove; }
 
       // overwritten by the various pieces
       virtual PieceType getType() const = 0;
@@ -88,8 +105,8 @@ class Piece
 class PieceDerived : public Piece
 {
    public:
-      PieceDerived(const Position &pos, bool isWhite) : Piece(9, 9) {}
-      PieceDerived(int c, int r, bool isWhite) : Piece(9, 9) {}
+      PieceDerived(const Position &pos, bool isWhite) : Piece(pos, isWhite) {}
+      PieceDerived(int c, int r, bool isWhite) : Piece(c, r, isWhite) {}
       ~PieceDerived() {}
       PieceType getType() const { return PieceType::SPACE; }
       void display(ogstream *pgout) const { assert(false); }
@@ -108,66 +125,26 @@ class PieceDummy : public Piece
       {
       }
       PieceDummy(int c, int r, bool isWhite = true) : Piece(c, r, isWhite) {}
-      PieceDummy(const Piece &piece) : Piece(0, 0, true) {}
+      PieceDummy(const Piece &piece) : Piece(piece) {}
       ~PieceDummy() {}
-      const Piece &operator=(const Piece &rhs)
-      {
-         assert(false);
-         return *this;
-      }
-      const Piece &operator=(const Position &rhs)
-      {
-         assert(false);
-         return *this;
-      }
+      const Piece &operator=(const Piece &rhs) { assert(false); }
+      const Piece &operator=(const Position &rhs) { assert(false); }
 
       // getters
-      bool operator==(char letter) const
-      {
-         assert(false);
-         return true;
-      }
-      bool operator!=(char letter) const
-      {
-         assert(false);
-         return true;
-      }
-      bool isWhite() const
-      {
-         assert(false);
-         return true;
-      }
-      bool isMoved() const
-      {
-         assert(false);
-         return true;
-      }
-      int getNMoves() const
-      {
-         assert(false);
-         return 0;
-      }
+      bool operator==(char letter) const { assert(false); }
+      bool operator!=(char letter) const { assert(false); }
+      bool isWhite() const { assert(false); }
+      bool isMoved() const { assert(false); }
+      int getNMoves() const { assert(false); }
       void decrementNMoves() { assert(false); }
-      const Position &getPosition() const
-      {
-         assert(false);
-         return position;
-      }
-      bool justMoved(int currentMove) const
-      {
-         assert(false);
-         return true;
-      }
+      const Position &getPosition() const { assert(false); }
+      bool justMoved(int currentMove) const { assert(false); }
 
       // setter
       void setLastMove(int currentMove) { assert(false); }
 
       // overwritten by the various pieces
-      PieceType getType() const
-      {
-         assert(false);
-         return PieceType::SPACE;
-      }
+      PieceType getType() const { assert(false); }
       void display(ogstream *pgout) const { assert(false); }
 };
 
@@ -213,7 +190,16 @@ class PieceSpy : public PieceDummy
 
       static void reset()
       {
-         numConstruct = numCopy = numDelete = numAssign = numMove = 0;
+         // These are assigned individually instead because:
+         // 1. It's easier to see what changes
+         // 2. Nobody chains multiple assignments
+         // 3. Adding and removing fields is easy
+
+         numConstruct = 0;
+         numCopy = 0;
+         numDelete = 0;
+         numAssign = 0;
+         numMove = 0;
       }
 
    private:

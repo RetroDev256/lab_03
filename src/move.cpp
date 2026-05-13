@@ -66,6 +66,22 @@ Move::Move(const char *str)
 }
 
 /******************************************************************************
+ * MOVE : CONSTRUCT FROM COMPONENTS
+ *****************************************************************************/
+Move::Move(
+   Position source, Position dest, PieceType capture, PieceType promote,
+   MoveType moveType, bool white
+) :
+   source(source),
+   dest(dest),
+   capture(capture),
+   promote(promote),
+   moveType(moveType),
+   isWhite(white)
+{
+}
+
+/******************************************************************************
  * Equality for different moves, from all fields
  *****************************************************************************/
 bool Move::operator==(const Move &rhs) const

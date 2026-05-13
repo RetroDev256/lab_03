@@ -2,7 +2,7 @@
  * Header File:
  *    TEST KNIGHT
  * Author:
- *    <your name here>
+ *    Eric Petersen & Briant Woolley
  * Summary:
  *    The unit tests for Knight
  ************************************************************************/

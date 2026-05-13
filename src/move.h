@@ -42,6 +42,11 @@ class Move
       Move(const char *str);
       // Constructor from C++ string
       Move(std::string str) { *this = Move(str.c_str()); }
+      // Constructor from components
+      Move(
+         Position source, Position dest, PieceType capture, PieceType promote,
+         MoveType moveType, bool white
+      );
 
       // Transitivity for different moves based on destination index
       bool operator<(const Move &rhs) const { return rhs.dest < this->dest; }
