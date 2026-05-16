@@ -43,17 +43,21 @@ int main()
    ogstream pgout;
    Board board(&pgout);
 
-   const Position knight_pos_a = Position(3, 4);
+   const Position knight_pos_a = Position(1, 0);
    Knight *k_a = new Knight(knight_pos_a, true);
    board.setPiece(knight_pos_a, k_a);
 
-   const Position knight_pos_b = Position(5, 4);
+   const Position knight_pos_b = Position(6, 0);
    Knight *k_b = new Knight(knight_pos_b, true);
    board.setPiece(knight_pos_b, k_b);
 
-   const Position knight_pos_c = Position(4, 2);
+   const Position knight_pos_c = Position(1, 7);
    Knight *k_c = new Knight(knight_pos_c, false);
    board.setPiece(knight_pos_c, k_c);
+
+   const Position knight_pos_d = Position(6, 7);
+   Knight *k_d = new Knight(knight_pos_d, false);
+   board.setPiece(knight_pos_d, k_d);
 
    // Start the rendering loop
    interface.run(callback, &board);
