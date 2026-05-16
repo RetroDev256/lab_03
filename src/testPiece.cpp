@@ -383,3 +383,29 @@ void TestPiece::setLastMove()
    assertUnit(piece.lastMove == 6);
    assertUnit(piece.nMoves == 3);
 } // teardown
+
+/******************************************************************************
+ * DECREMENT NMOVES
+ * input: piece={nMoves=1, fWhite=false, position={0, 0}, lastMove=0}
+ * output: piece={nMoves=0, fWhite=false, position={...}, lastMove=0}
+ *****************************************************************************/
+void TestPiece::decrementNMoves()
+{
+   // SETUP
+   PieceDerived p(0, 0, true);
+   p.nMoves = 1;
+   p.fWhite = false;
+   p.position = Position(0, 0);
+   p.lastMove = 0;
+
+   // EXERCISE
+   p.decrementNMoves();
+
+   // VERIFY
+   assertUnit(p.nMoves == 0);
+   assertUnit(p.fWhite == false);
+   assertUnit(p.nMoves == 0);
+   assertUnit(p.lastMove == 0);
+
+   // TEARDOWN
+}

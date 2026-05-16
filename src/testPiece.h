@@ -12,60 +12,61 @@
 #include "unitTest.h"
 
 /***************************************************
- * TEST PIECE 
+ * TEST PIECE
  * Test the PIECE base class
  ***************************************************/
 class TestPiece : public UnitTest
 {
-public:
+   public:
+      void run()
+      {
+         assignment();
 
-   void run()
-   {
-      assignment();
+         equals_same();
+         equals_different();
+         notEquals_same();
+         notEquals_different();
 
-      equals_same();
-      equals_different();
-      notEquals_same();
-      notEquals_different();
+         isWhite_white();
+         isWhite_black();
+         isMoved_initial();
+         isMoved_hasMoved();
+         getNMoves_initial();
+         getNMoves_hasMoved();
 
-      isWhite_white();
-      isWhite_black();
-      isMoved_initial();
-      isMoved_hasMoved();
-      getNMoves_initial();
-      getNMoves_hasMoved();
+         getPosition();
+         justMoved_initial();
+         justMoved_hasMoved();
+         justMoved_justMoved();
 
-      getPosition();
-      justMoved_initial();
-      justMoved_hasMoved();
-      justMoved_justMoved();
+         setLastMove();
 
-      setLastMove();
+         decrementNMoves();
 
-      report("Piece");
-   }
-private:
-   void assignment();
+         report("Piece");
+      }
 
-   void equals_same();
-   void equals_different();
-   void notEquals_same();
-   void notEquals_different();
+   private:
+      void assignment();
 
-   void isWhite_white();
-   void isWhite_black();
-   void isMoved_initial();
-   void isMoved_hasMoved();
-   void getNMoves_initial();
-   void getNMoves_hasMoved();
+      void equals_same();
+      void equals_different();
+      void notEquals_same();
+      void notEquals_different();
 
-   void getPosition();
-   void justMoved_initial();
-   void justMoved_hasMoved();
-   void justMoved_justMoved();
+      void isWhite_white();
+      void isWhite_black();
+      void isMoved_initial();
+      void isMoved_hasMoved();
+      void getNMoves_initial();
+      void getNMoves_hasMoved();
 
-   void setLastMove();
+      void getPosition();
+      void justMoved_initial();
+      void justMoved_hasMoved();
+      void justMoved_justMoved();
 
+      void setLastMove();
 
+      void decrementNMoves();
 };
-
