@@ -34,8 +34,9 @@ int main()
    // run the test code.
    testRunner();
 
-   // create the interface
+   // create the interface & increase framerate
    Interface interface("Chess");
+   interface.setFramesPerSecond(60);
 
    // create the board
    ogstream pgout;
