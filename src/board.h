@@ -56,6 +56,11 @@ class Board
       virtual void move(const Move &move);
       // Index the board with a Position to get a piece reference
       virtual Piece &operator[](const Position &pos);
+      // Set a position to be a piece (for code in main.cpp)
+      void setPiece(const Position &pos, Piece *piece)
+      {
+         board[pos.getRow()][pos.getCol()] = piece;
+      }
 
       virtual void free() { assert(false); }           // ???
       virtual void reset(bool free) { assert(false); } // ???

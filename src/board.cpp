@@ -78,12 +78,11 @@ Piece &Board::operator[](const Position &pos)
 void Board::display(const Position &hover, const Position &select) const
 {
    pgout->drawBoard();
+   pgout->drawHover(hover);
+   pgout->drawSelected(select);
 
    for (uint8_t row = 0; row < 8; row++)
       for (uint8_t col = 0; col < 8; col++)
          if (board[row][col] != nullptr)
             board[row][col]->display(pgout);
-
-   pgout->drawHover(hover);
-   pgout->drawSelected(select);
 }
