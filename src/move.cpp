@@ -44,19 +44,19 @@ Move::Move(const char *str)
 
    switch (modifier)
    {
-   case 'E':
-      this->moveType = ENPASSANT;
-      break;
-   case 'c':
-      this->moveType = CASTLE_KING;
-      break;
-   case 'C':
-      this->moveType = CASTLE_QUEEN;
-      break;
-   default:
-      this->moveType = MOVE;
-      if (len == 5 && piece == INVALID)
-         this->moveType = MOVE_ERROR;
+      case 'E':
+         this->moveType = ENPASSANT;
+         break;
+      case 'c':
+         this->moveType = CASTLE_KING;
+         break;
+      case 'C':
+         this->moveType = CASTLE_QUEEN;
+         break;
+      default:
+         this->moveType = MOVE;
+         if (len == 5 && piece == INVALID)
+            this->moveType = MOVE_ERROR;
    }
 
    this->promote = INVALID;
@@ -102,21 +102,21 @@ std::string Move::getText() const
 
    switch (moveType)
    {
-   case ENPASSANT:
-      os << 'E';
-      break;
+      case ENPASSANT:
+         os << 'E';
+         break;
 
-   case CASTLE_KING:
-      os << 'c';
-      break;
+      case CASTLE_KING:
+         os << 'c';
+         break;
 
-   case CASTLE_QUEEN:
-      os << 'C';
-      break;
+      case CASTLE_QUEEN:
+         os << 'C';
+         break;
 
-   default:
-      if (capture != INVALID && capture != SPACE)
-         os << letterFromPieceType(capture);
+      default:
+         if (capture != INVALID && capture != SPACE)
+            os << letterFromPieceType(capture);
    }
 
    return os.str();
@@ -129,24 +129,24 @@ char Move::letterFromPieceType(PieceType pt)
 {
    switch (pt)
    {
-   case BISHOP:
-      return 'b';
-   case PAWN:
-      return 'p';
-   case ROOK:
-      return 'r';
-   case QUEEN:
-      return 'q';
-   case KNIGHT:
-      return 'n';
-   case KING:
-      return 'k';
-   case SPACE:
-      return ' ';
-   case INVALID:
-      return '?';
-   default:
-      assert(false);
+      case BISHOP:
+         return 'b';
+      case PAWN:
+         return 'p';
+      case ROOK:
+         return 'r';
+      case QUEEN:
+         return 'q';
+      case KNIGHT:
+         return 'n';
+      case KING:
+         return 'k';
+      case SPACE:
+         return ' ';
+      case INVALID:
+         return '?';
+      default:
+         assert(false);
    }
 }
 
@@ -157,21 +157,21 @@ PieceType Move::pieceTypeFromLetter(char letter)
 {
    switch (letter)
    {
-   case 'b':
-      return BISHOP;
-   case 'p':
-      return PAWN;
-   case 'r':
-      return ROOK;
-   case 'q':
-      return QUEEN;
-   case 'n':
-      return KNIGHT;
-   case 'k':
-      return KING;
-   case ' ':
-      return SPACE;
-   default:
-      return INVALID;
+      case 'b':
+         return BISHOP;
+      case 'p':
+         return PAWN;
+      case 'r':
+         return ROOK;
+      case 'q':
+         return QUEEN;
+      case 'n':
+         return KNIGHT;
+      case 'k':
+         return KING;
+      case ' ':
+         return SPACE;
+      default:
+         return INVALID;
    }
 }

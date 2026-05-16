@@ -47,13 +47,27 @@ void Knight::getMoves(set<Move> &moves, const Board &board) const
 
    for (const auto &off : offsets)
    {
+      // Only consider valid targets - we cannot go out of bounds.
       Position target = this->position + off;
-      if (board[target] == PieceType::SPACE)
+      if (target.isInvalid())
+         continue;
+
+      // If the target position is a space, we are free to move there.
+      const bool regularMove = board[target] == PieceType::SPACE;
+      // If the target position is not our color, we can capture the piece.
+      const bool captureMove = board[target].isWhite() != this->fWhite;
+
+      if (regularMove || captureMove)
       {
+         // We move from this position to our target position. We can capture a
+         // piece of the target type. We cannot promote as a knight. This will
+         // be a move of our color.
          moves.insert(Move(
             this->position,
             target,
-            PieceType::INVALID,
+            // This means we can "capture" a PieceType::SPACE,
+            // but it shouldn't lead to any troublesome behavior.
+            board[target].getType(),
             PieceType::INVALID,
             Move::MoveType::MOVE,
             this->fWhite

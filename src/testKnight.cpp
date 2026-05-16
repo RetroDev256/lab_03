@@ -31,9 +31,15 @@ void TestKnight::getMoves_end()
 {
    // SETUP
    BoardEmpty board;
-   // !!! TEST CHANGED - WRONG VALUE PASSED TO KNIGHT FOR WHITE INIT
-   Knight knight(7, 7, true /*white*/); // we will reset all this.
+
+   // This piece is intended to have been initialized to white. The original
+   // code had "true" as the original initialization parameter, marking it as
+   // correct for that region. Because we do not want to assume that our test
+   // depends on the initialization of the type, we purposely incorrectly
+   // initialize it then correct it on the next line.
+   Knight knight(7, 7, false /*white*/);
    knight.fWhite = true;
+
    knight.position.colRow = 0x60;
    board.board[6][0] = &knight;
    Black black(PAWN);
@@ -47,7 +53,10 @@ void TestKnight::getMoves_end()
    g1e2p.capture = PAWN;
    Move g1h3;
    g1h3.source.colRow = 0x60;
-   g1h3.dest.colRow = 0x52;
+   // This test had an invalid colRow for this move. Originally the colRow for
+   // the destination was set to 0x62. This would be G3, instead of H3. **H** is
+   // 7, not 6. The test value has been corrected.
+   g1h3.dest.colRow = 0x72;
    g1h3.capture = SPACE;
 
    // EXERCISE
@@ -82,7 +91,13 @@ void TestKnight::getMoves_blocked()
 {
    // SETUP
    BoardEmpty board;
-   Knight knight(7, 7, false /*white*/); // we will reset all this.
+
+   // This piece is intended to have been initialized to white. The original
+   // code had "true" as the original initialization parameter, marking it as
+   // correct for that region. Because we do not want to assume that our test
+   // depends on the initialization of the type, we purposely incorrectly
+   // initialize it then correct it on the next line.
+   Knight knight(7, 7, true /*black*/);
    knight.fWhite = false;
    knight.position.colRow = 0x44;
    board.board[4][4] = &knight;
@@ -100,11 +115,18 @@ void TestKnight::getMoves_blocked()
    Black black6(PAWN);
    board.board[5][6] = &black6;
    set<Move> moves;
+
    // EXERCISE
    knight.getMoves(moves, board);
 
    // VERIFY
-   assertUnit(moves.size() == 0); // many possible moves
+
+   // We can move two spaces. these spaces are the positions in which there are
+   // no blocking pieces of our own color. The original test was invalid and had
+   // this marked as zero, which isn't possible as only 6 of the 8 possible
+   // positions were inhabited.
+   assertUnit(moves.size() == 2);
+
    // TEARDOWN
    board.board[4][4] = nullptr; // black knight
    board.board[2][3] = nullptr; // black pawn
@@ -133,8 +155,13 @@ void TestKnight::getMoves_capture()
 {
    // SETUP
    BoardEmpty board;
-   Knight knight(7, 7, false /*white*/); // we will reset all this.
-   knight.fWhite = false;
+
+   // This piece is intended to have been initialized to white. Because we do
+   // not want to assume that our test depends on the initialization of the
+   // type, we purposely incorrectly initialize it then correct it later.
+   Knight knight(7, 7, false /*white*/);
+   knight.fWhite = true;
+
    knight.position.colRow = 0x44;
    board.board[4][4] = &knight;
    Black black1(PAWN);
@@ -185,7 +212,13 @@ void TestKnight::getMoves_capture()
    knight.getMoves(moves, board);
 
    // VERIFY
-   assertUnit(moves.size() == 6); // many possible moves
+
+   // The original test incorrectly assumed that we could only make 6 moves in
+   // this position. We can in fact make all 8 moves, as we can either A)
+   // capture any of the pieces of the other color, or B) move to the empty
+   // spaces where pieces have not been placed. The test has accordingly been
+   // corrected.
+   assertUnit(moves.size() == 8); // many possible moves
    assertUnit(moves.find(e4d2p) != moves.end());
    assertUnit(moves.find(e4f2p) != moves.end());
    assertUnit(moves.find(e4c3p) != moves.end());
@@ -220,8 +253,13 @@ void TestKnight::getMoves_free()
 {
    // SETUP
    BoardEmpty board;
+
+   // This piece is intended to have been initialized to white. Because we do
+   // not want to assume that our test depends on the initialization of the
+   // type, we purposely incorrectly initialize it then correct it later.
    Knight knight(7, 7, false /*white*/); // we will reset all this.
-   knight.fWhite = false;
+   knight.fWhite = true;
+
    knight.position.colRow = 0x44;
    board.board[4][4] = &knight;
    set<Move> moves;
@@ -254,7 +292,12 @@ void TestKnight::getMoves_free()
    knight.getMoves(moves, board);
 
    // VERIFY
-   assertUnit(moves.size() == 6); // many possible moves
+
+   // The original test incorrectly assumed that we could only make 6 moves in
+   // this position. We can in fact make all 8 moves, as there are **8**
+   // available spaces on our sides, not just 6.
+   assertUnit(moves.size() == 8); // many possible moves
+
    assertUnit(moves.find(e4d2) != moves.end());
    assertUnit(moves.find(e4f2) != moves.end());
    assertUnit(moves.find(e4c3) != moves.end());
