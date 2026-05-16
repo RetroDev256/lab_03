@@ -29,6 +29,28 @@ Board::Board(ogstream *pgout, bool noreset) : numMoves(0)
 }
 
 /******************************************************************************
+ * Execute a move on two different pieces
+ * - The piece in the destination position is NOT deleted by this function
+ * ^ Memory management must be performed by the caller.
+ *****************************************************************************/
+void Board::move(const Move &move)
+{
+   const Position src = move.getSource();
+   const Position dest = move.getDestination();
+
+   // Move the piece pointer
+   board[dest.getCol()][dest.getRow()] = board[src.getCol()][src.getRow()];
+   // Replace source with an empty space
+   board[src.getCol()][src.getRow()] = new Space(src.getCol(), src.getRow());
+   // Mark the piece as having moved
+   board[dest.getCol()][dest.getRow()]->setLastMove(numMoves);
+
+   // Not implemented yet: castling logic, promotions.
+
+   numMoves++;
+}
+
+/******************************************************************************
  * BOARD : GET (constant reference)
  *         Get a piece from a given position.
  *         - asserts that the position is valid

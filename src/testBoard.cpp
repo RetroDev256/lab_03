@@ -577,8 +577,8 @@ void TestBoard::move_knightMove()
  * +---a-b-c-d-e-f-g-h---+       +---a-b-c-d-e-f-g-h---+
  * |                     |       |                     |
  * 8                     8       8                     8
- * 7       R             7       7                     7
- * 6                     6       6       n             6
+ * 7                     7       7                     7
+ * 6       R             6       6       n             6
  * 5          (n)        5       5           .         5
  * 4                     4  -->  4                     4
  * 3                     3       3                     3

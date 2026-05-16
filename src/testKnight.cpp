@@ -31,12 +31,6 @@ void TestKnight::getMoves_end()
 {
    // SETUP
    BoardEmpty board;
-
-   // This piece is intended to have been initialized to white. The original
-   // code had "true" as the original initialization parameter, marking it as
-   // correct for that region. Because we do not want to assume that our test
-   // depends on the initialization of the type, we purposely incorrectly
-   // initialize it then correct it on the next line.
    Knight knight(7, 7, false /*white*/);
    knight.fWhite = true;
 
@@ -91,13 +85,7 @@ void TestKnight::getMoves_blocked()
 {
    // SETUP
    BoardEmpty board;
-
-   // This piece is intended to have been initialized to white. The original
-   // code had "true" as the original initialization parameter, marking it as
-   // correct for that region. Because we do not want to assume that our test
-   // depends on the initialization of the type, we purposely incorrectly
-   // initialize it then correct it on the next line.
-   Knight knight(7, 7, true /*black*/);
+   Knight knight(7, 7, true /*white*/);
    knight.fWhite = false;
    knight.position.colRow = 0x44;
    board.board[4][4] = &knight;
@@ -155,13 +143,8 @@ void TestKnight::getMoves_capture()
 {
    // SETUP
    BoardEmpty board;
-
-   // This piece is intended to have been initialized to white. Because we do
-   // not want to assume that our test depends on the initialization of the
-   // type, we purposely incorrectly initialize it then correct it later.
    Knight knight(7, 7, false /*white*/);
    knight.fWhite = true;
-
    knight.position.colRow = 0x44;
    board.board[4][4] = &knight;
    Black black1(PAWN);
@@ -253,11 +236,7 @@ void TestKnight::getMoves_free()
 {
    // SETUP
    BoardEmpty board;
-
-   // This piece is intended to have been initialized to white. Because we do
-   // not want to assume that our test depends on the initialization of the
-   // type, we purposely incorrectly initialize it then correct it later.
-   Knight knight(7, 7, false /*white*/); // we will reset all this.
+   Knight knight(7, 7, false /*white*/);
    knight.fWhite = true;
 
    knight.position.colRow = 0x44;

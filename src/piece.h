@@ -84,7 +84,11 @@ class Piece
       }
 
       // setter
-      virtual void setLastMove(int currentMove) { lastMove = currentMove; }
+      virtual void setLastMove(int currentMove)
+      {
+         nMoves += 1;
+         lastMove = currentMove;
+      }
 
       // overwritten by the various pieces
       virtual PieceType getType() const = 0;
@@ -190,11 +194,6 @@ class PieceSpy : public PieceDummy
 
       static void reset()
       {
-         // These are assigned individually instead because:
-         // 1. It's easier to see what changes
-         // 2. Nobody chains multiple assignments
-         // 3. Adding and removing fields is easy
-
          numConstruct = 0;
          numCopy = 0;
          numDelete = 0;

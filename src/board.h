@@ -54,8 +54,8 @@ class Board
       {
       }
 
-      // Execute a move on different pieces [not yet fully implemented]
-      virtual void move(const Move &move) { numMoves++; }
+      // Execute a move on different pieces
+      virtual void move(const Move &move);
       // Index the board with a Position to get a piece reference
       virtual Piece &operator[](const Position &pos);
 
@@ -109,8 +109,6 @@ class BoardEmpty : public BoardDummy
 
       BoardEmpty() : BoardDummy(), pSpace(new Space(0, 0)) {}
       ~BoardEmpty() { delete pSpace; }
-
-      // TODO: might need to add getCurrentMove() -> 0 ???
 
       const Piece &operator[](const Position &pos) const
       {

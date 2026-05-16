@@ -23,6 +23,16 @@ using namespace std;
 const Piece &Piece::operator=(const Piece &rhs)
 {
 
+   // We don't know, and don't want to know how to handle assignment logic for
+   // child types. So we will just copy the parent type fields and let children
+   // types add their own assignment operator, calling this operator for the
+   // parent data.
+
+   this->fWhite = rhs.fWhite;
+   this->lastMove = rhs.lastMove;
+   this->nMoves = rhs.nMoves;
+   this->position = rhs.position;
+
    return *this;
 }
 

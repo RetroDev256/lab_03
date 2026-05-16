@@ -54,6 +54,10 @@ class Move
       bool operator==(const Move &rhs) const;
       // Conversion to and from text (standard notation)
       std::string getText() const;
+      // Get the source position
+      Position getSource() const { return source; }
+      // Get the destination position
+      Position getDestination() const { return dest; }
 
       // Assignment operator from C string
       const Move &operator=(const char *rhs) { return *this = Move(rhs); }
