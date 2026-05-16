@@ -49,10 +49,8 @@ class Board
       virtual bool whiteTurn() const { return (numMoves & 1) == 0; }
       // Index the board with a Position to get a constant piece reference
       virtual const Piece &operator[](const Position &pos) const;
-      // Display the board [not yet implemented]
-      virtual void display(const Position &hover, const Position &select) const
-      {
-      }
+      // Display the board
+      virtual void display(const Position &hover, const Position &select) const;
 
       // Execute a move on different pieces
       virtual void move(const Move &move);
@@ -67,6 +65,8 @@ class Board
       int numMoves;
       // a two dimentional array of pointers to each piece
       Piece *board[8][8];
+      // graphics drawing stream instance pointer
+      ogstream *pgout;
 };
 
 /******************************************************************************

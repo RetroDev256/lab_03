@@ -19,9 +19,8 @@ using namespace std;
  *****************************************************************************/
 Board::Board(ogstream *pgout, bool noreset) : numMoves(0)
 {
-   // unused.
-   (void)pgout;
-   (void)noreset;
+   this->pgout = pgout;
+   (void)noreset; // unused.
 
    for (uint8_t row = 0; row < 8; row++)
       for (uint8_t col = 0; col < 8; col++)
@@ -70,4 +69,17 @@ Piece &Board::operator[](const Position &pos)
 {
    assert(pos.isValid());
    return *(board[pos.getCol()][pos.getRow()]);
+}
+
+/******************************************************************************
+ * Display the board
+ * - each piece must display themselves using the provided ogstream
+ *****************************************************************************/
+void Board::display(const Position &hover, const Position &select) const
+{
+   pgout->drawBoard();
+
+   for (uint8_t row = 0; row < 8; row++)
+      for (uint8_t col = 0; col < 8; col++)
+         board[row][col]->display(pgout);
 }

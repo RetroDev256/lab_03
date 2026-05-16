@@ -13,6 +13,7 @@
 #include "move.h"      // Because we return a set of Move
 #include "pieceType.h" // A piece type.
 #include "position.h"  // Because Position is a member variable
+#include "uiDraw.h"    // for ogstream
 #include <cassert>
 #include <list> // for the move-type,list
 #include <set>  // for SET to return a set of possible moves
@@ -20,7 +21,6 @@ using std::set;
 
 // forward declaration because one of the Piece methods takes a Board
 // as a parameter, and the Board has an array of Pieces
-class ogstream;
 class Board;
 class MoveType;
 
